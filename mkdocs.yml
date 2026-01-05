@@ -1,0 +1,18 @@
+site_name: Home Assistant JSON Schemas
+site_description: A collection of JSON schemas for Home Assistant integrations and components.
+site_author: neggles
+site_url: https://neggles.github.io/ha-json-schema/
+
+repo_url: https://github.com/neggles/ha-json-schema
+edit_uri: blob/master/docs/
+copyright: 2026 Andi Powers-Holmes (neggles) <aholmes@omnom.net>
+
+theme:
+  name: material
+markdown_extensions:
+  - tables
+
+plugins:
+  - gen-files:
+      scripts:
+        - src/copy_schemas.py

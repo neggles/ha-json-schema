@@ -1,0 +1,158 @@
+{
+  "anyOf": [
+    {
+      "$ref": "#/definitions/ProxyCameraPlatformSchema"
+    },
+    {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ProxyCameraPlatformSchema"
+      }
+    }
+  ],
+  "definitions": {
+    "ProxyCameraPlatformSchema": {
+      "type": "object",
+      "properties": {
+        "platform": {
+          "description": "The proxy camera integration allows you to pass another camera's output through post-processing routines and\ngenerate a new camera with the post-processed output.\nhttps://www.home-assistant.io/integrations/proxy/",
+          "type": "string",
+          "const": "proxy"
+        },
+        "entity_id": {
+          "pattern": "^camera\\..*$",
+          "description": "The ID of another Home Assistant camera to post-process.\nhttps://www.home-assistant.io/integrations/proxy/#entity_id",
+          "type": "string"
+        },
+        "name": {
+          "description": "This parameter allows you to override the name of your camera.\nhttps://www.home-assistant.io/integrations/proxy/#name",
+          "type": "string"
+        },
+        "mode": {
+          "description": "The operating mode, either `resize` or `crop`.\nhttps://www.home-assistant.io/integrations/proxy/#mode",
+          "enum": [
+            "crop",
+            "resize"
+          ],
+          "type": "string"
+        },
+        "max_image_width": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "The maximum width of single images taken from the camera (aspect ratio will be\nmaintained on resize processing).\nhttps://www.home-assistant.io/integrations/proxy/#max_image_width"
+        },
+        "max_image_height": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "The maximum height of single images taken from the camera, only used for crop\noperations. If not provided, the original height is assumed by default.\nhttps://www.home-assistant.io/integrations/proxy/#max_image_height"
+        },
+        "max_stream_width": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "The maximum width of the MJPEG stream from the camera (aspect ratio will be\nmaintained on resize processing).\nhttps://www.home-assistant.io/integrations/proxy/#max_stream_width"
+        },
+        "max_stream_height": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "The maximum height of the MJPEG stream from the camera, only used for crop\noperations. If not provided, the original height is assumed by default.\nhttps://www.home-assistant.io/integrations/proxy/#max_stream_height"
+        },
+        "image_top": {
+          "type": "integer",
+          "description": "The top (y) coordinate to be used as a starting point for crop operations.\nhttps://www.home-assistant.io/integrations/proxy/#image_top"
+        },
+        "image_left": {
+          "type": "integer",
+          "description": "The left (x) coordinate to be used as a starting point for crop operations.\nhttps://www.home-assistant.io/integrations/proxy/#image_left"
+        },
+        "image_quality": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "The quality level used for resulting JPEG for snapshots.\nhttps://www.home-assistant.io/integrations/proxy/#image_quality"
+        },
+        "stream_quality": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "The quality level used for resulting MJPEG streams.\nhttps://www.home-assistant.io/integrations/proxy/#stream_quality"
+        },
+        "image_refresh_rate": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "The minimum time in seconds between generating successive image snapshots.\nhttps://www.home-assistant.io/integrations/proxy/#image_refresh_rate"
+        },
+        "force_resize": {
+          "description": "Resize the image even if the resulting image would take up more bandwidth than\nthe original.\nhttps://www.home-assistant.io/integrations/proxy/#force_resize",
+          "type": "boolean"
+        },
+        "cache_images": {
+          "description": "Preserve the last image and re-send in the case the camera is not responding.\nhttps://www.home-assistant.io/integrations/proxy/#cache_images",
+          "type": "boolean"
+        },
+        "entity_namespace": {
+          "description": "By setting an entity namespace, all entities will be prefixed with that namespace.\nhttps://www.home-assistant.io/docs/configuration/platform_options/#entity-namespace",
+          "type": "string"
+        },
+        "scan_interval": {
+          "description": "Allow to change the polling interval if the platform uses a polling mechanism.\nhttps://www.home-assistant.io/docs/configuration/platform_options/#scan-interval",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TimePeriodMap"
+            },
+            {
+              "type": [
+                "string",
+                "number"
+              ]
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "entity_id",
+        "platform"
+      ]
+    },
+    "TimePeriodMap": {
+      "type": "object",
+      "properties": {
+        "days": {
+          "description": "Number of days. This must be a number.",
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "hours": {
+          "description": "Number of hours. This must be a number.",
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "milliseconds": {
+          "description": "Number of milliseconds. This must be a number.",
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "minutes": {
+          "description": "Number of minutes. This must be a number.",
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "seconds": {
+          "description": "Number of seconds. This must be a number.",
+          "type": [
+            "string",
+            "number"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

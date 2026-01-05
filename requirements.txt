@@ -1,0 +1,4 @@
+jinja-cli>=1.2.2
+jsonschema2md>=1.7.0
+mkdocs-gen-files>=0.6.0
+mkdocs-material>=9.7.0

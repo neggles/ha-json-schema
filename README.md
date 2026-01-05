@@ -7,6 +7,6 @@ format them, pull them into the repo's `schemas/` folder, and publish them to Gi
 
 ## Acknowledgements
 
-inspired by [johnhamelink's hass-json-schema](https://git.sr.ht/~johnhamelink/hass-json-schema/),
+inspired by johnhamelink's [hass-json-schema](https://git.sr.ht/~johnhamelink/hass-json-schema/),
 which does the same thing, but as of this writing is not actually *usable* due to sourcehut's aggressive 
 anti-bot protections blocking `yaml-language-server`'s requests for the schema files.

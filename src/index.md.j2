@@ -1,0 +1,15 @@
+# Home Assistant JSON Schema Repository
+
+This site hosts JSON schemas extracted from the
+[vscode-home-assistant](https://github.com/keesschollaart81/vscode-home-assistant) extension.
+
+Generated schemas are formatted and published under `schemas/` on this site for use with
+[yaml-language-server](https://github.com/redhat-developer/yaml-language-server).
+
+## Available schema files:
+
+| Schema | Link |
+| -------- | ---: |
+{%- for schema in schemas %}
+| {{ schema.rsplit('.', 1)[0] }} | [{{ schema }}](./schemas/{{ schema }}) |
+{%- endfor %}

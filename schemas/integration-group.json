@@ -1,0 +1,105 @@
+{
+  "type": "object",
+  "additionalProperties": {
+    "anyOf": [
+      {
+        "type": "string",
+        "pattern": "^!include_dir_named .*$"
+      },
+      {
+        "type": "string",
+        "pattern": "^!include_dir_named\r.*$"
+      },
+      {
+        "type": "string",
+        "pattern": "^!include_dir_named\n.*$"
+      },
+      {
+        "type": "string",
+        "pattern": "^!include_dir_named\t.*$"
+      },
+      {
+        "type": "string",
+        "pattern": "^!include_dir_named\f.*$"
+      },
+      {
+        "type": "string",
+        "pattern": "^!include_dir_named\u000b.*$"
+      },
+      {
+        "type": "string",
+        "pattern": "^!include_dir_merge_named .*$"
+      },
+      {
+        "type": "string",
+        "pattern": "^!include_dir_merge_named\r.*$"
+      },
+      {
+        "type": "string",
+        "pattern": "^!include_dir_merge_named\n.*$"
+      },
+      {
+        "type": "string",
+        "pattern": "^!include_dir_merge_named\t.*$"
+      },
+      {
+        "type": "string",
+        "pattern": "^!include_dir_merge_named\f.*$"
+      },
+      {
+        "type": "string",
+        "pattern": "^!include_dir_merge_named\u000b.*$"
+      },
+      {
+        "$ref": "#/definitions/Item"
+      }
+    ]
+  },
+  "definitions": {
+    "Item": {
+      "type": "object",
+      "properties": {
+        "all": {
+          "description": "Set this to true if the group state should only turn on if all grouped entities are on, false otherwise.\nhttps://www.home-assistant.io/integrations/group",
+          "type": "boolean"
+        },
+        "entities": {
+          "$ref": "#/definitions/Entities",
+          "description": "A list of entities to group.\nhttps://www.home-assistant.io/integrations/group#entities"
+        },
+        "icon": {
+          "description": "The icon that shows in the frontend.\nhttps://www.home-assistant.io/integrations/group#icon",
+          "type": "string"
+        },
+        "name": {
+          "description": "Name of the group.\nhttps://www.home-assistant.io/integrations/group#name",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "entities"
+      ]
+    },
+    "Entities": {
+      "pattern": "^(?!.+__)(?!_)[\\da-z_]+(?<!_)\\.(?!_)[\\da-z_]+(?<!_)\\s?(?:,\\s?(?!.+__)(?!_)[\\da-z_]+(?<!_)\\.(?!_)[\\da-z_]+(?<!_))*$",
+      "items": {
+        "pattern": "^(?!.+__)(?!_)[\\da-z_]+(?<!_)\\.(?!_)[\\da-z_]+(?<!_)$"
+      },
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^.*\\..*$"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^.*\\..*$"
+          }
+        }
+      ]
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
