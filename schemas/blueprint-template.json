@@ -1,0 +1,2173 @@
+{
+  "type": "object",
+  "properties": {
+    "blueprint": {
+      "$ref": "#/definitions/Blueprint",
+      "description": "The blueprint schema.\nhttps://www.home-assistant.io/docs/blueprint/schema/#the-blueprint-schema"
+    },
+    "variables": {
+      "description": "Variables that will be available inside your state definition.",
+      "$ref": "#/definitions/Data"
+    },
+    "sensor": {
+      "description": "The sensor definition. See template sensor documentation.\nhttps://www.home-assistant.io/integrations/template/#sensor",
+      "$ref": "#/definitions/SensorItem"
+    },
+    "binary_sensor": {
+      "description": "The binary sensor definition. See template binary sensor documentation.\nhttps://www.home-assistant.io/integrations/template/#binary-sensor",
+      "$ref": "#/definitions/BinarySensorItem"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "blueprint"
+  ],
+  "definitions": {
+    "Blueprint": {
+      "type": "object",
+      "properties": {
+        "author": {
+          "description": "Defines the name of the author of this Blueprint\nhttps://www.home-assistant.io/docs/blueprint/schema/#author",
+          "type": "string"
+        },
+        "description": {
+          "description": "The description of the blueprint. While optional, this field is highly recommended. The description can include Markdown.\nhttps://www.home-assistant.io/docs/blueprint/schema/#description",
+          "type": "string"
+        },
+        "domain": {
+          "description": "The domain name this blueprint provides a blueprint for.\nhttps://www.home-assistant.io/docs/blueprint/schema/#domain",
+          "type": "string"
+        },
+        "homeassistant": {
+          "description": "Home Assistant requirements for this Blueprint.",
+          "type": "object",
+          "properties": {
+            "min_version": {
+              "description": "The minimal version number of Home Assistant Core that is needed for this Blueprint.",
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "input": {
+          "description": "These are the input fields that the consumer of your blueprint can provide using YAML definition, or via a configuration form in the UI.\nhttps://www.home-assistant.io/docs/blueprint/schema/#input",
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/BlueprintInputSchema"
+              },
+              {
+                "$ref": "#/definitions/BlueprintInputSectionSchema"
+              }
+            ]
+          }
+        },
+        "name": {
+          "description": "The name of the blueprint. Keep this short and descriptive.\nhttps://www.home-assistant.io/docs/blueprint/schema/#name",
+          "type": "string"
+        },
+        "source_url": {
+          "description": "The URL to the online location where this Blueprint was imported from. Generally there is no need to add this, in the future this might be used for updating Blueprints.",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "domain",
+        "name"
+      ]
+    },
+    "BlueprintInputSchema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "The name of the input field.\nhttps://www.home-assistant.io/docs/blueprint/schema/#name",
+          "type": "string"
+        },
+        "description": {
+          "description": "A short description of the input field. Keep this short and descriptive.\nhttps://www.home-assistant.io/docs/blueprint/schema/#description",
+          "type": "string"
+        },
+        "default": {
+          "description": "The default value of this input, in case the input is not provided by the user of this blueprint.\nhttps://www.home-assistant.io/docs/blueprint/schema/#default"
+        },
+        "selector": {
+          "description": "The default value of this input, in case the input is not provided by the user of this blueprint.\nhttps://www.home-assistant.io/docs/blueprint/schema/#default",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ActionSelector"
+            },
+            {
+              "$ref": "#/definitions/AddonSelector"
+            },
+            {
+              "$ref": "#/definitions/AreaSelector"
+            },
+            {
+              "$ref": "#/definitions/AssistPipelineSelector"
+            },
+            {
+              "$ref": "#/definitions/AttributeSelector"
+            },
+            {
+              "$ref": "#/definitions/BackupLocationSelector"
+            },
+            {
+              "$ref": "#/definitions/BooleanSelector"
+            },
+            {
+              "$ref": "#/definitions/ColorRGBSelector"
+            },
+            {
+              "$ref": "#/definitions/ColorTempSelector"
+            },
+            {
+              "$ref": "#/definitions/ConditionSelector"
+            },
+            {
+              "$ref": "#/definitions/ConfigEntrySelector"
+            },
+            {
+              "$ref": "#/definitions/ConstantSelector"
+            },
+            {
+              "$ref": "#/definitions/ConversationAgentSelector"
+            },
+            {
+              "$ref": "#/definitions/CountrySelector"
+            },
+            {
+              "$ref": "#/definitions/DateSelector"
+            },
+            {
+              "$ref": "#/definitions/DateTimeSelector"
+            },
+            {
+              "$ref": "#/definitions/DeviceSelector"
+            },
+            {
+              "$ref": "#/definitions/DurationSelector"
+            },
+            {
+              "$ref": "#/definitions/EntitySelector"
+            },
+            {
+              "$ref": "#/definitions/FileSelector"
+            },
+            {
+              "$ref": "#/definitions/FloorSelector"
+            },
+            {
+              "$ref": "#/definitions/IconSelector"
+            },
+            {
+              "$ref": "#/definitions/LabelSelector"
+            },
+            {
+              "$ref": "#/definitions/LanguageSelector"
+            },
+            {
+              "$ref": "#/definitions/LocationSelector"
+            },
+            {
+              "$ref": "#/definitions/MediaSelector"
+            },
+            {
+              "$ref": "#/definitions/NumberSelector"
+            },
+            {
+              "$ref": "#/definitions/ObjectSelector"
+            },
+            {
+              "$ref": "#/definitions/QRCodeSelector"
+            },
+            {
+              "$ref": "#/definitions/SelectSelector"
+            },
+            {
+              "$ref": "#/definitions/StateSelector"
+            },
+            {
+              "$ref": "#/definitions/TargetSelector"
+            },
+            {
+              "$ref": "#/definitions/TemplateSelector"
+            },
+            {
+              "$ref": "#/definitions/TextSelector"
+            },
+            {
+              "$ref": "#/definitions/ThemeSelector"
+            },
+            {
+              "$ref": "#/definitions/TimeSelector"
+            },
+            {
+              "$ref": "#/definitions/TriggerSelector"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "ActionSelector": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "description": "The action selector allows the user to input one or more sequences of actions.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#action-selector",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Record%3Cstring%2Cnever%3E"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "action"
+      ]
+    },
+    "Record<string,never>": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "AddonSelector": {
+      "type": "object",
+      "properties": {
+        "addon": {
+          "description": "The add-on selector allows the user to input an add-on slug. On the user interface, it will list all installed add-ons and use the slug of the selected add-on.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#add-on-selector",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Record%3Cstring%2Cnever%3E"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "addon"
+      ]
+    },
+    "AreaSelector": {
+      "type": "object",
+      "properties": {
+        "area": {
+          "description": "The area selector shows an area finder that can pick a single area. The value of the input will be the area ID of the user-selected area.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#area-selector",
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "device": {
+                  "description": "When device options are provided, the list of areas is filtered by areas that at least provide one device that matches the given conditions.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#area-selector",
+                  "anyOf": [
+                    {
+                      "$ref": "#/definitions/DeviceSelectorFilter"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/DeviceSelectorFilter"
+                      }
+                    }
+                  ]
+                },
+                "entity": {
+                  "description": "When entity options are provided, the list of areas is filtered by areas that at least provide one entity that matches the given conditions.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#area-selector",
+                  "anyOf": [
+                    {
+                      "$ref": "#/definitions/EntitySelectorFilter"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/EntitySelectorFilter"
+                      }
+                    }
+                  ]
+                },
+                "multiple": {
+                  "description": "Allows selecting multiple areas. If set to `true`, the resulting value of this selector will be a list instead of a single string value.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#area-selector",
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "area"
+      ]
+    },
+    "DeviceSelectorFilter": {
+      "type": "object",
+      "properties": {
+        "integration": {
+          "pattern": "^(?!.+__)(?!_)[\\da-z_]+(?<!_)$",
+          "description": "Can be set to an integration domain. Limits the list of devices to devices provided by the set integration domain.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#device-selector",
+          "type": "string"
+        },
+        "manufacturer": {
+          "description": "When set, it limits the list of devices to devices provided by the set manufacturer name.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#device-selector",
+          "type": "string"
+        },
+        "model": {
+          "description": "When set, it limits the list of devices to devices that have the set model.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#device-selector",
+          "type": "string"
+        },
+        "model_id": {
+          "description": "When set, the list of devices is limited to devices that have the set model ID.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#device-selector",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EntitySelectorFilter": {
+      "type": "object",
+      "properties": {
+        "integration": {
+          "pattern": "^(?!.+__)(?!_)[\\da-z_]+(?<!_)$",
+          "description": "Can be set to an integration domain. Limits the list of devices that provide entities by the set integration domain.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#entity-selector",
+          "type": "string"
+        },
+        "domain": {
+          "description": "Limits the list of devices that provide entities of a certain domain.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#entity-selector",
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "device_class": {
+          "description": "Limits the list of entities to entities that have a certain device class.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#entity-selector",
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DeviceClasses"
+              }
+            },
+            {
+              "enum": [
+                "apparent_power",
+                "aqi",
+                "area",
+                "atmospheric_pressure",
+                "awning",
+                "battery",
+                "battery_charging",
+                "blind",
+                "blood_glucose_concentration",
+                "carbon_dioxide",
+                "carbon_monoxide",
+                "cold",
+                "conductivity",
+                "connectivity",
+                "current",
+                "curtain",
+                "damper",
+                "data_rate",
+                "data_size",
+                "date",
+                "distance",
+                "door",
+                "duration",
+                "energy",
+                "energy_distance",
+                "energy_storage",
+                "enum",
+                "frequency",
+                "garage",
+                "garage_door",
+                "gas",
+                "gate",
+                "heat",
+                "humidity",
+                "illuminance",
+                "irradiance",
+                "light",
+                "lock",
+                "moisture",
+                "monetary",
+                "motion",
+                "moving",
+                "nitrogen_dioxide",
+                "nitrogen_monoxide",
+                "nitrous_oxide",
+                "occupancy",
+                "opening",
+                "outlet",
+                "ozone",
+                "ph",
+                "plug",
+                "pm1",
+                "pm10",
+                "pm25",
+                "power",
+                "power_factor",
+                "precipitation",
+                "precipitation_intensity",
+                "presence",
+                "pressure",
+                "problem",
+                "reactive_power",
+                "receiver",
+                "running",
+                "safety",
+                "shade",
+                "shutter",
+                "signal_strength",
+                "smoke",
+                "sound",
+                "sound_pressure",
+                "speaker",
+                "speed",
+                "sulphur_dioxide",
+                "switch",
+                "tamper",
+                "temperature",
+                "timestamp",
+                "tv",
+                "update",
+                "vibration",
+                "volatile_organic_compounds",
+                "volatile_organic_compounds_parts",
+                "voltage",
+                "volume",
+                "volume_flow_rate",
+                "volume_storage",
+                "water",
+                "weight",
+                "wind_speed",
+                "window"
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "supported_features": {
+          "description": "Limits the list of entities to entities that have a certain supported feature.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#entity-selector",
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SupportedFeature"
+              }
+            },
+            {
+              "enum": [
+                "camera.AlarmControlPanelEntityFeature.ARM_AWAY",
+                "camera.AlarmControlPanelEntityFeature.ARM_CUSTOM_BYPASS",
+                "camera.AlarmControlPanelEntityFeature.ARM_HOME",
+                "camera.AlarmControlPanelEntityFeature.ARM_NIGHT",
+                "camera.AlarmControlPanelEntityFeature.ARM_VACATION",
+                "camera.AlarmControlPanelEntityFeature.TRIGGER",
+                "camera.CameraEntityFeature.ON_OFF",
+                "camera.CameraEntityFeature.STREAM",
+                "climate.ClimateEntityFeature.AUX_HEAT",
+                "climate.ClimateEntityFeature.FAN_MODE",
+                "climate.ClimateEntityFeature.PRESET_MODE",
+                "climate.ClimateEntityFeature.SWING_HORIZONTAL_MODE",
+                "climate.ClimateEntityFeature.SWING_MODE",
+                "climate.ClimateEntityFeature.TARGET_HUMIDITY",
+                "climate.ClimateEntityFeature.TARGET_TEMPERATURE",
+                "climate.ClimateEntityFeature.TARGET_TEMPERATURE_RANGE",
+                "climate.ClimateEntityFeature.TURN_OFF",
+                "climate.ClimateEntityFeature.TURN_ON",
+                "cover.CoverEntityFeature.CLOSE",
+                "cover.CoverEntityFeature.CLOSE_TILT",
+                "cover.CoverEntityFeature.OPEN",
+                "cover.CoverEntityFeature.OPEN_TILT",
+                "cover.CoverEntityFeature.SET_POSITION",
+                "cover.CoverEntityFeature.SET_TILT_POSITION",
+                "cover.CoverEntityFeature.STOP",
+                "cover.CoverEntityFeature.STOP_TILT",
+                "fan.FanEntityFeature.DIRECTION",
+                "fan.FanEntityFeature.OSCILLATE",
+                "fan.FanEntityFeature.PRESET_MODE",
+                "fan.FanEntityFeature.SET_SPEED",
+                "fan.FanEntityFeature.TURN_OFF",
+                "fan.FanEntityFeature.TURN_ON",
+                "light.LightEntityFeature.EFFECT",
+                "light.LightEntityFeature.FLASH",
+                "light.LightEntityFeature.TRANSITION",
+                "lock.LockEntityFeature.OPEN",
+                "update.UpdateEntityFeature.BACKUP",
+                "update.UpdateEntityFeature.INSTALL",
+                "update.UpdateEntityFeature.PROGRESS",
+                "update.UpdateEntityFeature.RELEASE_NOTES",
+                "update.UpdateEntityFeature.SPECIFIC_VERSION",
+                "vacuum.VacuumEntityFeature.BATTERY",
+                "vacuum.VacuumEntityFeature.CLEAN_SPOT",
+                "vacuum.VacuumEntityFeature.FAN_SPEED",
+                "vacuum.VacuumEntityFeature.LOCATE",
+                "vacuum.VacuumEntityFeature.MAP",
+                "vacuum.VacuumEntityFeature.PAUSE",
+                "vacuum.VacuumEntityFeature.RETURN_HOME",
+                "vacuum.VacuumEntityFeature.SEND_COMMAND",
+                "vacuum.VacuumEntityFeature.START",
+                "vacuum.VacuumEntityFeature.STATE",
+                "vacuum.VacuumEntityFeature.STATUS",
+                "vacuum.VacuumEntityFeature.STOP",
+                "vacuum.VacuumEntityFeature.TURN_OFF",
+                "vacuum.VacuumEntityFeature.TURN_ON",
+                "weather.WeatherEntityFeature.FORECAST_DAILY",
+                "weather.WeatherEntityFeature.FORECAST_HOURLY",
+                "weather.WeatherEntityFeature.FORECAST_TWICE_DAILY"
+              ],
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "DeviceClasses": {
+      "enum": [
+        "apparent_power",
+        "aqi",
+        "area",
+        "atmospheric_pressure",
+        "awning",
+        "battery",
+        "battery_charging",
+        "blind",
+        "blood_glucose_concentration",
+        "carbon_dioxide",
+        "carbon_monoxide",
+        "cold",
+        "conductivity",
+        "connectivity",
+        "current",
+        "curtain",
+        "damper",
+        "data_rate",
+        "data_size",
+        "date",
+        "distance",
+        "door",
+        "duration",
+        "energy",
+        "energy_distance",
+        "energy_storage",
+        "enum",
+        "frequency",
+        "garage",
+        "garage_door",
+        "gas",
+        "gate",
+        "heat",
+        "humidity",
+        "illuminance",
+        "irradiance",
+        "light",
+        "lock",
+        "moisture",
+        "monetary",
+        "motion",
+        "moving",
+        "nitrogen_dioxide",
+        "nitrogen_monoxide",
+        "nitrous_oxide",
+        "occupancy",
+        "opening",
+        "outlet",
+        "ozone",
+        "ph",
+        "plug",
+        "pm1",
+        "pm10",
+        "pm25",
+        "power",
+        "power_factor",
+        "precipitation",
+        "precipitation_intensity",
+        "presence",
+        "pressure",
+        "problem",
+        "reactive_power",
+        "receiver",
+        "running",
+        "safety",
+        "shade",
+        "shutter",
+        "signal_strength",
+        "smoke",
+        "sound",
+        "sound_pressure",
+        "speaker",
+        "speed",
+        "sulphur_dioxide",
+        "switch",
+        "tamper",
+        "temperature",
+        "timestamp",
+        "tv",
+        "update",
+        "vibration",
+        "volatile_organic_compounds",
+        "volatile_organic_compounds_parts",
+        "voltage",
+        "volume",
+        "volume_flow_rate",
+        "volume_storage",
+        "water",
+        "weight",
+        "wind_speed",
+        "window"
+      ],
+      "type": "string"
+    },
+    "SupportedFeature": {
+      "enum": [
+        "camera.AlarmControlPanelEntityFeature.ARM_AWAY",
+        "camera.AlarmControlPanelEntityFeature.ARM_CUSTOM_BYPASS",
+        "camera.AlarmControlPanelEntityFeature.ARM_HOME",
+        "camera.AlarmControlPanelEntityFeature.ARM_NIGHT",
+        "camera.AlarmControlPanelEntityFeature.ARM_VACATION",
+        "camera.AlarmControlPanelEntityFeature.TRIGGER",
+        "camera.CameraEntityFeature.ON_OFF",
+        "camera.CameraEntityFeature.STREAM",
+        "climate.ClimateEntityFeature.AUX_HEAT",
+        "climate.ClimateEntityFeature.FAN_MODE",
+        "climate.ClimateEntityFeature.PRESET_MODE",
+        "climate.ClimateEntityFeature.SWING_HORIZONTAL_MODE",
+        "climate.ClimateEntityFeature.SWING_MODE",
+        "climate.ClimateEntityFeature.TARGET_HUMIDITY",
+        "climate.ClimateEntityFeature.TARGET_TEMPERATURE",
+        "climate.ClimateEntityFeature.TARGET_TEMPERATURE_RANGE",
+        "climate.ClimateEntityFeature.TURN_OFF",
+        "climate.ClimateEntityFeature.TURN_ON",
+        "cover.CoverEntityFeature.CLOSE",
+        "cover.CoverEntityFeature.CLOSE_TILT",
+        "cover.CoverEntityFeature.OPEN",
+        "cover.CoverEntityFeature.OPEN_TILT",
+        "cover.CoverEntityFeature.SET_POSITION",
+        "cover.CoverEntityFeature.SET_TILT_POSITION",
+        "cover.CoverEntityFeature.STOP",
+        "cover.CoverEntityFeature.STOP_TILT",
+        "fan.FanEntityFeature.DIRECTION",
+        "fan.FanEntityFeature.OSCILLATE",
+        "fan.FanEntityFeature.PRESET_MODE",
+        "fan.FanEntityFeature.SET_SPEED",
+        "fan.FanEntityFeature.TURN_OFF",
+        "fan.FanEntityFeature.TURN_ON",
+        "light.LightEntityFeature.EFFECT",
+        "light.LightEntityFeature.FLASH",
+        "light.LightEntityFeature.TRANSITION",
+        "lock.LockEntityFeature.OPEN",
+        "update.UpdateEntityFeature.BACKUP",
+        "update.UpdateEntityFeature.INSTALL",
+        "update.UpdateEntityFeature.PROGRESS",
+        "update.UpdateEntityFeature.RELEASE_NOTES",
+        "update.UpdateEntityFeature.SPECIFIC_VERSION",
+        "vacuum.VacuumEntityFeature.BATTERY",
+        "vacuum.VacuumEntityFeature.CLEAN_SPOT",
+        "vacuum.VacuumEntityFeature.FAN_SPEED",
+        "vacuum.VacuumEntityFeature.LOCATE",
+        "vacuum.VacuumEntityFeature.MAP",
+        "vacuum.VacuumEntityFeature.PAUSE",
+        "vacuum.VacuumEntityFeature.RETURN_HOME",
+        "vacuum.VacuumEntityFeature.SEND_COMMAND",
+        "vacuum.VacuumEntityFeature.START",
+        "vacuum.VacuumEntityFeature.STATE",
+        "vacuum.VacuumEntityFeature.STATUS",
+        "vacuum.VacuumEntityFeature.STOP",
+        "vacuum.VacuumEntityFeature.TURN_OFF",
+        "vacuum.VacuumEntityFeature.TURN_ON",
+        "weather.WeatherEntityFeature.FORECAST_DAILY",
+        "weather.WeatherEntityFeature.FORECAST_HOURLY",
+        "weather.WeatherEntityFeature.FORECAST_TWICE_DAILY"
+      ],
+      "type": "string"
+    },
+    "AssistPipelineSelector": {
+      "type": "object",
+      "properties": {
+        "assist_pipeline": {
+          "description": "The assist pipeline selector shows all available assist pipelines (assistants) of which one can be selected.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#assist-pipeline-selector",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Record%3Cstring%2Cnever%3E"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "assist_pipeline"
+      ]
+    },
+    "AttributeSelector": {
+      "type": "object",
+      "properties": {
+        "attribute": {
+          "description": "The attributes selector shows a list of state attributes from a provided entity of which one can be selected.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#attribute-selector",
+          "type": "object",
+          "properties": {
+            "entity_id": {
+              "pattern": "^.*\\..*$",
+              "description": "The entity ID of which an state attribute can be selected from.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#attribute-selector",
+              "type": "string"
+            },
+            "hide_attributes": {
+              "description": "List of attribute names to hide from the UI. Hidden attributes can still be provided manually.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#attribute-selector",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "entity_id"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "attribute"
+      ]
+    },
+    "BackupLocationSelector": {
+      "type": "object",
+      "properties": {
+        "backup_location": {
+          "description": "The backup location selector shows a list of places a backup could go, depending on what you have configured in storage.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#backup-location-selector",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Record%3Cstring%2Cnever%3E"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "backup_location"
+      ]
+    },
+    "BooleanSelector": {
+      "type": "object",
+      "properties": {
+        "boolean": {
+          "description": "The boolean selector shows a toggle that allows the user to turn on or off the selected option.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#boolean-selector",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Record%3Cstring%2Cnever%3E"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "boolean"
+      ]
+    },
+    "ColorRGBSelector": {
+      "type": "object",
+      "properties": {
+        "color_rgb": {
+          "description": "The RGB color selector allows the user to select a color from a color picker from the user interface, and returns the RGB color value.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#rgb-color-selector",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Record%3Cstring%2Cnever%3E"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "color_rgb"
+      ]
+    },
+    "ColorTempSelector": {
+      "type": "object",
+      "properties": {
+        "color_temp": {
+          "description": "The color temperature selector allows you to select a color temperature from a gradient using a slider.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#color-temperature-selector",
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "unit": {
+                  "description": "The chosen unit for the color temperature. This can be either `kelvin` or `mired`. `mired` is the default for historical reasons.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#color-temperature-selector",
+                  "enum": [
+                    "kelvin",
+                    "mired"
+                  ],
+                  "type": "string"
+                },
+                "min": {
+                  "description": "The minimum color temperature in the chosen unit.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#color-temperature-selector",
+                  "type": "number"
+                },
+                "max": {
+                  "description": "The maximum color temperature in the chosen unit.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#color-temperature-selector",
+                  "type": "number"
+                },
+                "min_mireds": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "description": "The minimum color temperature in mireds (legacy).\nhttps://www.home-assistant.io/docs/blueprint/selectors/#color-temperature-selector"
+                },
+                "max_mireds": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "description": "The maximum color temperature in mireds (legacy).\nhttps://www.home-assistant.io/docs/blueprint/selectors/#color-temperature-selector"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "color_temp"
+      ]
+    },
+    "ConditionSelector": {
+      "type": "object",
+      "properties": {
+        "condition": {
+          "description": "The condition selector allows the user to input one or more conditions..\nhttps://www.home-assistant.io/docs/blueprint/selectors/#condition-selector",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Record%3Cstring%2Cnever%3E"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "condition"
+      ]
+    },
+    "ConfigEntrySelector": {
+      "type": "object",
+      "properties": {
+        "config_entry": {
+          "description": "The config entry selector allows the user to select an integration configuration entry. The selector returns the entry ID of the selected integration configuration entry.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#config-entry-selector",
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "integration": {
+                  "pattern": "^(?!.+__)(?!_)[\\da-z_]+(?<!_)$",
+                  "description": "Can be set to an integration domain. Limits the list of config entries provided by the set integration domain.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#config-entry-selector",
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "config_entry"
+      ]
+    },
+    "ConstantSelector": {
+      "type": "object",
+      "properties": {
+        "constant": {
+          "description": "The constant selector shows a toggle that allows the user to enable the selected option. This is similar to the boolean selector, the difference is that the constant selector has no value when it's not enabled.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#constant-selector",
+          "type": "object",
+          "properties": {
+            "label": {
+              "description": "The label that is shown in the UI for this constant.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#constant-selector",
+              "type": "string"
+            },
+            "translation_key": {
+              "description": "Translation key for internationalization support.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#constant-selector",
+              "type": "string"
+            },
+            "value": {
+              "description": "Value that is returned when this constant is enabled by the user\nhttps://www.home-assistant.io/docs/blueprint/selectors/#constant-selector",
+              "type": [
+                "string",
+                "number",
+                "boolean"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "value"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "constant"
+      ]
+    },
+    "ConversationAgentSelector": {
+      "type": "object",
+      "properties": {
+        "conversation_agent": {
+          "description": "The conversation agent selector allows picking a conversation agent.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#conversation-agent-selector",
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "language": {
+                  "description": "Limits the list of conversation agents to those supporting the specified language.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#conversation-agent-selector",
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "conversation_agent"
+      ]
+    },
+    "CountrySelector": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "description": "The country selector allows a user to pick a country from a list of countries.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#country-selector",
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "countries": {
+                  "description": "A list of countries to pick from, this should be ISO 3166 country codes.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#country-selector",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "no_sort": {
+                  "description": "Should the options be sorted by name, if set to true, the order of the provided countries is kept.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#country-selector",
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "country"
+      ]
+    },
+    "DateSelector": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "description": "The date selector shows a date input that allows the user to specify a date.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#date-selector",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Record%3Cstring%2Cnever%3E"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "date"
+      ]
+    },
+    "DateTimeSelector": {
+      "type": "object",
+      "properties": {
+        "datetime": {
+          "description": "The date selector shows a date and time input that allows the user to specify a date with a specific time.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#date--time-selector",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Record%3Cstring%2Cnever%3E"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "datetime"
+      ]
+    },
+    "DeviceSelector": {
+      "type": "object",
+      "properties": {
+        "device": {
+          "description": "The device selector shows a device finder that can pick a single device.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#device-selector",
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "entity": {
+                  "description": "When entity options are provided, the list of devices is filtered by devices that at least provide one entity that matches the given conditions.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#device-selector",
+                  "anyOf": [
+                    {
+                      "$ref": "#/definitions/EntitySelectorFilter"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/EntitySelectorFilter"
+                      }
+                    }
+                  ]
+                },
+                "filter": {
+                  "description": "When filter options are provided, the list of devices is filtered by devices that at least provide one entity that matches the given conditions.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#device-selector",
+                  "anyOf": [
+                    {
+                      "$ref": "#/definitions/DeviceSelectorFilter"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/DeviceSelectorFilter"
+                      }
+                    }
+                  ]
+                },
+                "integration": {
+                  "pattern": "LEGACY_SYNTAX^",
+                  "items": {
+                    "pattern": "LEGACY_SYNTAX^"
+                  },
+                  "description": "You can use filter parameter to filter devices\"."
+                },
+                "manufacturer": {
+                  "pattern": "LEGACY_SYNTAX^",
+                  "items": {
+                    "pattern": "LEGACY_SYNTAX^"
+                  },
+                  "description": "You can use filter parameter to filter devices\"."
+                },
+                "model": {
+                  "pattern": "LEGACY_SYNTAX^",
+                  "items": {
+                    "pattern": "LEGACY_SYNTAX^"
+                  },
+                  "description": "You can use filter parameter to filter devices\"."
+                },
+                "multiple": {
+                  "description": "Allows selecting multiple devices. If set to `true`, the resulting value of this selector will be a list instead of a single string value.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#device-selector",
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "device"
+      ]
+    },
+    "DurationSelector": {
+      "type": "object",
+      "properties": {
+        "duration": {
+          "description": "The duration select allow the user to select a time duration. This can be helpful for, e.g., delays or offsets.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#duration-selector",
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "enable_day": {
+                  "description": "When true, the duration selector will allow selecting days.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#duration-selector",
+                  "type": "boolean"
+                },
+                "enable_millisecond": {
+                  "description": "When true, the duration selector will allow selecting milliseconds.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#duration-selector",
+                  "type": "boolean"
+                },
+                "allow_negative": {
+                  "description": "Allow negative durations. Will default to False in HA Core 2025.6.0.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#duration-selector",
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "duration"
+      ]
+    },
+    "EntitySelector": {
+      "type": "object",
+      "properties": {
+        "entity": {
+          "description": "The entity selector shows an entity finder that can pick a single entity.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#entity-selector",
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "exclude_entities": {
+                  "description": "List of entity IDs to exclude from the selectable list.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#entity-selector",
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^.*\\..*$"
+                  }
+                },
+                "include_entities": {
+                  "description": "List of entity IDs to limit the selectable list to.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#entity-selector",
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^.*\\..*$"
+                  }
+                },
+                "integration": {
+                  "pattern": "LEGACY_SYNTAX^",
+                  "items": {
+                    "pattern": "LEGACY_SYNTAX^"
+                  },
+                  "description": "You can use filter parameter to filter entities\"."
+                },
+                "domain": {
+                  "pattern": "LEGACY_SYNTAX^",
+                  "items": {
+                    "pattern": "LEGACY_SYNTAX^"
+                  },
+                  "description": "You can use filter parameter to filter entities\"."
+                },
+                "device_class": {
+                  "pattern": "LEGACY_SYNTAX^",
+                  "items": {
+                    "pattern": "LEGACY_SYNTAX^"
+                  },
+                  "description": "You can use filter parameter to filter entities\"."
+                },
+                "filter": {
+                  "description": "When filter options are provided, the entities are limited by entities that at least match the given conditions.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#entity-selector",
+                  "anyOf": [
+                    {
+                      "$ref": "#/definitions/EntitySelectorFilter"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/EntitySelectorFilter"
+                      }
+                    }
+                  ]
+                },
+                "multiple": {
+                  "description": "Allows selecting multiple devices. If set to `true`, the resulting value of this selector will be a list instead of a single string value.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#entity-selector",
+                  "type": "boolean"
+                },
+                "reorder": {
+                  "description": "Allows reordering of entities (only applies if `multiple` is set to `true`).\nhttps://www.home-assistant.io/docs/blueprint/selectors/#entity-selector",
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "entity"
+      ]
+    },
+    "FileSelector": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "description": "The file selector allows the user to select a file.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#file-selector",
+          "type": "object",
+          "properties": {
+            "accept": {
+              "description": "File type filter using HTML input accept attribute format.\nhttps://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept\nhttps://www.home-assistant.io/docs/blueprint/selectors/#file-selector",
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "accept"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "file"
+      ]
+    },
+    "FloorSelector": {
+      "type": "object",
+      "properties": {
+        "floor": {
+          "description": "The icon selector shows an icon picker that allows the user to select an icon.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#floor-selector",
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "device": {
+                  "description": "When device options are provided, the list of floors is filtered by floors that have at least one device matching the given conditions.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#floor-selector",
+                  "anyOf": [
+                    {
+                      "$ref": "#/definitions/DeviceSelectorFilter"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/DeviceSelectorFilter"
+                      }
+                    }
+                  ]
+                },
+                "entity": {
+                  "description": "When entity options are provided, the list only includes floors that at least have one entity that matches the given conditions.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#floor-selector",
+                  "anyOf": [
+                    {
+                      "$ref": "#/definitions/EntitySelectorFilter"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/EntitySelectorFilter"
+                      }
+                    }
+                  ]
+                },
+                "multiple": {
+                  "description": "Allows selecting multiple floors. If set to true, the resulting value of this selector will be a list instead of a single string value.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#floor-selector",
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "floor"
+      ]
+    },
+    "IconSelector": {
+      "type": "object",
+      "properties": {
+        "icon": {
+          "description": "The icon selector shows an icon picker that allows the user to select an icon.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#icon-selector",
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "placeholder": {
+                  "description": "Placeholder icon to show, when no icon is selected.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#icon-selector",
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "icon"
+      ]
+    },
+    "LabelSelector": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "description": "The label selector shows a label finder that can pick labels.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#label-selector",
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "multiple": {
+                  "description": "Allows selecting multiple labels. If set to true, the resulting value of this selector will be a list instead of a single string value\nhttps://www.home-assistant.io/docs/blueprint/selectors/#label-selector",
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "label"
+      ]
+    },
+    "LanguageSelector": {
+      "type": "object",
+      "properties": {
+        "language": {
+          "description": "The language selector allows a user to pick a language from a list of languages.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#language-selector",
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "languages": {
+                  "description": "A list of languages to pick from, this should be RFC 5646 languages codes.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#language-selector",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "native_name": {
+                  "description": "Should the name of the languages be shown in the language of the user, or in the language itself.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#language-selector",
+                  "type": "boolean"
+                },
+                "no_sort": {
+                  "description": "Should the options be sorted by name, if set to true, the order of the provided languages is kept.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#language-selector",
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "language"
+      ]
+    },
+    "LocationSelector": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "description": "The icon selector shows an icon picker that allows the user to select an icon.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#location-selector",
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "description": "An optional icon to show on the map.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#location-selector",
+                  "type": "string"
+                },
+                "radius": {
+                  "description": "Allow selecting the radius of the location. If enabled, the radius will be returned in meters.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#location-selector",
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "location"
+      ]
+    },
+    "MediaSelector": {
+      "type": "object",
+      "properties": {
+        "media": {
+          "description": "The media selector is a powerful selector that allows a user to easily select media to play on a media device.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#media-selector",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Record%3Cstring%2Cnever%3E"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "media"
+      ]
+    },
+    "NumberSelector": {
+      "type": "object",
+      "properties": {
+        "number": {
+          "description": "The number selector shows either a number input or a slider input, that allows the user to specify a numeric value.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#number-selector",
+          "type": "object",
+          "properties": {
+            "max": {
+              "description": "The maximum user-settable number value.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#number-selector",
+              "type": "number"
+            },
+            "min": {
+              "description": "The minimal user-settable number value.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#number-selector",
+              "type": "number"
+            },
+            "mode": {
+              "description": "This can be either box or slider mode.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#number-selector",
+              "enum": [
+                "box",
+                "slider"
+              ],
+              "type": "string"
+            },
+            "step": {
+              "description": "The step value of the number value.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#number-selector",
+              "type": "number"
+            },
+            "unit_of_measurement": {
+              "description": "Unit of measurement in which the number value is expressed in.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#number-selector",
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "max",
+            "min"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "number"
+      ]
+    },
+    "ObjectSelector": {
+      "type": "object",
+      "properties": {
+        "object": {
+          "description": "The object selector can be used to input arbitrary data in YAML form. This is useful for e.g. lists and dictionaries like service data.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#object-selector",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Record%3Cstring%2Cnever%3E"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "object"
+      ]
+    },
+    "QRCodeSelector": {
+      "type": "object",
+      "properties": {
+        "qr_code": {
+          "description": "The QR code selector shows a QR code.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#qr-code-selector",
+          "type": "object",
+          "properties": {
+            "data": {
+              "description": "The data that should be represented in the QR code.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#qr-code-selector"
+            },
+            "scale": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "The scale factor to use, this will make the QR code bigger or smaller.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#qr-code-selector"
+            },
+            "error_correction_level": {
+              "description": "The error correction level of the QR code, with a higher error correction level the QR code can be scanned even when some pieces are missing.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#qr-code-selector",
+              "enum": [
+                "high",
+                "low",
+                "medium",
+                "quartile"
+              ],
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "data"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "qr_code"
+      ]
+    },
+    "SelectSelector": {
+      "type": "object",
+      "properties": {
+        "select": {
+          "description": "The select selector shows a list of available options from which the user can choose.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#select-selector",
+          "type": "object",
+          "properties": {
+            "custom_value": {
+              "description": "Allows the user to enter and select a custom value (or multiple custom values in addition to the listed options if `multiple` is set to true).\nhttps://www.home-assistant.io/docs/blueprint/selectors/#select-selector",
+              "type": "boolean"
+            },
+            "mode": {
+              "description": "This can be either `list` or `dropdown` mode. when not specificied, small lists (5 items or less), are displayed as radio buttons. When more items are added, a dropdown list is used.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#select-selector",
+              "enum": [
+                "dropdown",
+                "list"
+              ],
+              "type": "string"
+            },
+            "multiple": {
+              "description": "Allows selecting multiple options. If set to `true`, the resulting value of this selector will be a list instead of a single string value.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#select-selector",
+              "type": "boolean"
+            },
+            "sort": {
+              "description": "Display options in alphabetical order.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#select-selector",
+              "type": "boolean"
+            },
+            "translation_key": {
+              "description": "Translation key for internationalization support.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#select-selector",
+              "type": "string"
+            },
+            "options": {
+              "description": "List of options that the user can choose from.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#select-selector",
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "description": "The description to show in the UI for this item.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#select-selector",
+                        "type": "string"
+                      },
+                      "value": {
+                        "description": "The value to return when this label is selected.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#select-selector",
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "label",
+                      "value"
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "options"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "select"
+      ]
+    },
+    "StateSelector": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "description": "The state selector shows a list of states for a provided entity of which one can be selected.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#state-selector",
+          "type": "object",
+          "properties": {
+            "entity_id": {
+              "pattern": "^.*\\..*$",
+              "description": "The entity ID of which a state can be selected from.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#state-selector",
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "entity_id"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "state"
+      ]
+    },
+    "TargetSelector": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "description": "The target selector is a rather special selector, allowing the user to select targeted entities, devices or areas for service calls.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#target-selector",
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "device": {
+                  "description": "When device options are provided, the targets are limited by devices that at least match the given conditions.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#target-selector",
+                  "anyOf": [
+                    {
+                      "$ref": "#/definitions/DeviceSelectorFilter"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/DeviceSelectorFilter"
+                      }
+                    }
+                  ]
+                },
+                "entity": {
+                  "description": "When entity options are provided, the targets are limited by entities that at least match the given conditions.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#target-selector",
+                  "anyOf": [
+                    {
+                      "$ref": "#/definitions/EntitySelectorFilter"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/EntitySelectorFilter"
+                      }
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "target"
+      ]
+    },
+    "TemplateSelector": {
+      "type": "object",
+      "properties": {
+        "template": {
+          "description": "The template can be used for allowing the user to input a Jinja2 template.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#template-selector",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Record%3Cstring%2Cnever%3E"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "template"
+      ]
+    },
+    "TextSelector": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "description": "The text selector can be used to input a text string.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#text-selector",
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "multiline": {
+                  "description": "Set to true to display the input as a multi-line text box on the user interface.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#text-selector",
+                  "type": "boolean"
+                },
+                "multiple": {
+                  "description": "Allows adding list of text strings. If set to true, the resulting value of this selector will be a list instead of a single string value.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#text-selector",
+                  "type": "boolean"
+                },
+                "prefix": {
+                  "description": "Allows adding a prefix to the input field.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#text-selector",
+                  "type": "string"
+                },
+                "suffix": {
+                  "description": "Allows adding a suffix to the input field.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#text-selector",
+                  "type": "string"
+                },
+                "type": {
+                  "description": "The type of input. This is a browser hint, which can improve the client side validation of the input. The value isn't validated by the backend.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#text-selector",
+                  "enum": [
+                    "color",
+                    "date",
+                    "datetime-local",
+                    "email",
+                    "month",
+                    "number",
+                    "password",
+                    "search",
+                    "tel",
+                    "text",
+                    "time",
+                    "url",
+                    "week"
+                  ],
+                  "type": "string"
+                },
+                "autocomplete": {
+                  "description": "Guides the browser on the type of information which should automatically fill the field. This supplies the HTML autocomplete attribute.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#text-selector",
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "text"
+      ]
+    },
+    "ThemeSelector": {
+      "type": "object",
+      "properties": {
+        "theme": {
+          "description": "The theme selector allows for selecting a theme from the available themes installed in Home Assistant.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#theme-selector",
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "include_default": {
+                  "description": "Includes Home Assistant default theme in the list.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#theme-selector",
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "theme"
+      ]
+    },
+    "TimeSelector": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "description": "The time selector shows a time input that allows the user to specify a time of the day.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#time-selector",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Record%3Cstring%2Cnever%3E"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "time"
+      ]
+    },
+    "TriggerSelector": {
+      "type": "object",
+      "properties": {
+        "trigger": {
+          "description": "The triggers selector allows the user to input one or more triggers. On the user interface, the trigger part of the automation editor is shown.\nhttps://www.home-assistant.io/docs/blueprint/selectors/#trigger-selector",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Record%3Cstring%2Cnever%3E"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "trigger"
+      ]
+    },
+    "BlueprintInputSectionSchema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "A name for the section. If omitted the key of the section is used.\nhttps://www.home-assistant.io/docs/blueprint/schema/#name",
+          "type": "string"
+        },
+        "description": {
+          "description": "An optional description of this section, which will be displayed at the top of the section. The description can include Markdown.\nhttps://www.home-assistant.io/docs/blueprint/schema/#description",
+          "type": "string"
+        },
+        "icon": {
+          "description": "An icon to display next to the name of the section.\nhttps://www.home-assistant.io/docs/blueprint/schema/#icon",
+          "type": "string"
+        },
+        "collapsed": {
+          "description": "If true, the section will be collapsed by default. Useful for optional or less important inputs. All collapsed inputs must also have a defined default before they can be hidden.\nhttps://www.home-assistant.io/docs/blueprint/schema/#collapsed",
+          "type": "boolean"
+        },
+        "input": {
+          "description": "A dictionary of defined user inputs within this section.\nhttps://www.home-assistant.io/docs/blueprint/schema/#input",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/BlueprintInputSchema"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "input"
+      ]
+    },
+    "Data": {
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "SensorItem": {
+      "type": "object",
+      "properties": {
+        "attributes": {
+          "description": "Defines a template to get the available state of the entity. If the template either fails to render or returns True, \"1\", \"true\", \"yes\", \"on\", \"enable\", or a non-zero number, the entity will be available.\nhttps://www.home-assistant.io/integrations/template#availability",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "device_class": {
+          "description": "Sets the class of the device, changing the device state and icon that is displayed on the UI (see below). It does not set the unit_of_measurement.\nhttps://www.home-assistant.io/integrations/template#device_class",
+          "enum": [
+            "apparent_power",
+            "aqi",
+            "area",
+            "atmospheric_pressure",
+            "battery",
+            "blood_glucose_concentration",
+            "carbon_dioxide",
+            "carbon_monoxide",
+            "conductivity",
+            "current",
+            "data_rate",
+            "data_size",
+            "date",
+            "distance",
+            "duration",
+            "energy",
+            "energy_distance",
+            "energy_storage",
+            "enum",
+            "frequency",
+            "gas",
+            "humidity",
+            "illuminance",
+            "irradiance",
+            "moisture",
+            "monetary",
+            "nitrogen_dioxide",
+            "nitrogen_monoxide",
+            "nitrous_oxide",
+            "ozone",
+            "ph",
+            "pm1",
+            "pm10",
+            "pm25",
+            "power",
+            "power_factor",
+            "precipitation",
+            "precipitation_intensity",
+            "pressure",
+            "reactive_power",
+            "signal_strength",
+            "sound_pressure",
+            "speed",
+            "sulphur_dioxide",
+            "temperature",
+            "timestamp",
+            "volatile_organic_compounds",
+            "volatile_organic_compounds_parts",
+            "voltage",
+            "volume",
+            "volume_flow_rate",
+            "volume_storage",
+            "water",
+            "weight",
+            "wind_speed"
+          ],
+          "type": "string"
+        },
+        "picture": {
+          "description": "Defines a template for the entity picture of the sensor.\nhttps://www.home-assistant.io/integrations/template#picture",
+          "type": "string"
+        },
+        "state_class": {
+          "description": "The state_class of the sensor. This will also display the value based on the user profile Number Format setting and influence the graphical presentation in the history visualization as a continuous value.\nhttps://www.home-assistant.io/integrations/template#state_class",
+          "enum": [
+            "measurement",
+            "total",
+            "total_increasing"
+          ],
+          "type": "string"
+        },
+        "state": {
+          "description": "Defines a template to get the state of the sensor.\nhttps://www.home-assistant.io/integrations/template#state",
+          "type": "string"
+        },
+        "unit_of_measurement": {
+          "description": "Defines the units of measurement of the sensor, if any. This will also display the value based on the user profile Number Format setting and influence the graphical presentation in the history visualization as a continuous value.\nhttps://www.home-assistant.io/integrations/template#state",
+          "type": "string"
+        },
+        "availability": {
+          "description": "Defines a template to get the available state of the entity. If the template either fails to render or returns True, \"1\", \"true\", \"yes\", \"on\", \"enable\", or a non-zero number, the entity will be available.\nhttps://www.home-assistant.io/integrations/template#availability",
+          "type": "string"
+        },
+        "default_entity_id": {
+          "description": "Use default_entity_id instead of name for automatic generation of the entity id. E.g. sensor.my_awesome_sensor. When used without a unique_id, the entity id will update during restart or reload if the entity id is available. If the entity id already exists, the entity id will be created with a number at the end. When used with a unique_id, the default_entity_id is only used when the entity is added for the first time. When set, this overrides a user-customized Entity ID in case the entity was deleted and added again.\nhttps://www.home-assistant.io/integrations/template#default_entity_id",
+          "type": "string"
+        },
+        "icon": {
+          "description": "Defines a template for the icon of the entity.\nhttps://www.home-assistant.io/integrations/template#icon",
+          "type": "string"
+        },
+        "name": {
+          "description": "Defines a template to get the name of the entity.\nhttps://www.home-assistant.io/integrations/template#name",
+          "type": "string"
+        },
+        "unique_id": {
+          "description": "An ID that uniquely identifies this entity. Will be combined with the unique ID of the configuration block if available. This allows changing the name, icon and entity_id from the web interface.\nhttps://www.home-assistant.io/integrations/template#unique_id",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "state"
+      ]
+    },
+    "BinarySensorItem": {
+      "type": "object",
+      "properties": {
+        "attributes": {
+          "description": "Defines a template to get the available state of the entity. If the template either fails to render or returns True, \"1\", \"true\", \"yes\", \"on\", \"enable\", or a non-zero number, the entity will be available.\nhttps://www.home-assistant.io/integrations/template#availability",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "auto_off": {
+          "description": "**Requires a trigger**. After how much time the entity should turn off after it rendered ‘on’.\nhttps://www.home-assistant.io/integrations/template#auto_off",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TimePeriodMap"
+            },
+            {
+              "type": [
+                "string",
+                "number"
+              ]
+            }
+          ]
+        },
+        "delay_off": {
+          "description": "The amount of time (ie 0:00:05) the template state must be not met before this sensor will switch to on. This can also be a template.\nhttps://www.home-assistant.io/integrations/template#delay_off",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TimePeriodMap"
+            },
+            {
+              "type": [
+                "string",
+                "number"
+              ]
+            }
+          ]
+        },
+        "delay_on": {
+          "description": "The amount of time (ie 0:00:05) the template state must be met before this sensor will switch to on. This can also be a template.\nhttps://www.home-assistant.io/integrations/template#delay_on",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TimePeriodMap"
+            },
+            {
+              "type": [
+                "string",
+                "number"
+              ]
+            }
+          ]
+        },
+        "device_class": {
+          "description": "Sets the class of the device, changing the device state and icon that is displayed on the UI (see below). It does not set the unit_of_measurement.\nhttps://www.home-assistant.io/integrations/template#device_class",
+          "enum": [
+            "battery",
+            "battery_charging",
+            "carbon_monoxide",
+            "cold",
+            "connectivity",
+            "door",
+            "garage_door",
+            "gas",
+            "heat",
+            "light",
+            "lock",
+            "moisture",
+            "motion",
+            "moving",
+            "occupancy",
+            "opening",
+            "plug",
+            "power",
+            "presence",
+            "problem",
+            "running",
+            "safety",
+            "smoke",
+            "sound",
+            "tamper",
+            "update",
+            "vibration",
+            "window"
+          ],
+          "type": "string"
+        },
+        "picture": {
+          "description": "Defines a template for the entity picture of the sensor.\nhttps://www.home-assistant.io/integrations/template#picture",
+          "type": "string"
+        },
+        "state": {
+          "description": "The sensor is on if the template evaluates as True, yes, on, enable or a positive number. Any other value will render it as off. The actual appearance in the frontend (Open/Closed, Detected/Clear etc) depends on the sensor’s device_class value\nhttps://www.home-assistant.io/integrations/template#state",
+          "type": "string"
+        },
+        "availability": {
+          "description": "Defines a template to get the available state of the entity. If the template either fails to render or returns True, \"1\", \"true\", \"yes\", \"on\", \"enable\", or a non-zero number, the entity will be available.\nhttps://www.home-assistant.io/integrations/template#availability",
+          "type": "string"
+        },
+        "default_entity_id": {
+          "description": "Use default_entity_id instead of name for automatic generation of the entity id. E.g. sensor.my_awesome_sensor. When used without a unique_id, the entity id will update during restart or reload if the entity id is available. If the entity id already exists, the entity id will be created with a number at the end. When used with a unique_id, the default_entity_id is only used when the entity is added for the first time. When set, this overrides a user-customized Entity ID in case the entity was deleted and added again.\nhttps://www.home-assistant.io/integrations/template#default_entity_id",
+          "type": "string"
+        },
+        "icon": {
+          "description": "Defines a template for the icon of the entity.\nhttps://www.home-assistant.io/integrations/template#icon",
+          "type": "string"
+        },
+        "name": {
+          "description": "Defines a template to get the name of the entity.\nhttps://www.home-assistant.io/integrations/template#name",
+          "type": "string"
+        },
+        "unique_id": {
+          "description": "An ID that uniquely identifies this entity. Will be combined with the unique ID of the configuration block if available. This allows changing the name, icon and entity_id from the web interface.\nhttps://www.home-assistant.io/integrations/template#unique_id",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "TimePeriodMap": {
+      "type": "object",
+      "properties": {
+        "days": {
+          "description": "Number of days. This must be a number.",
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "hours": {
+          "description": "Number of hours. This must be a number.",
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "milliseconds": {
+          "description": "Number of milliseconds. This must be a number.",
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "minutes": {
+          "description": "Number of minutes. This must be a number.",
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "seconds": {
+          "description": "Number of seconds. This must be a number.",
+          "type": [
+            "string",
+            "number"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
